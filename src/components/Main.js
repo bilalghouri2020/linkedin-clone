@@ -1,6 +1,29 @@
 import styled from 'styled-components'
+import PostModel from './PostModel'
+import { useState } from 'react'
 
 const Main = (props) => {
+
+    const [showModel, setShowModel] = useState('close')
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        if (e.target !== e.currentTarget) {
+            return;
+
+        }
+        switch (showModel) {
+            case "open":
+                setShowModel("close");
+                break
+            case "close":
+                setShowModel("open");
+                break;
+            default:
+                setShowModel("close")
+                break
+        }
+    }
     return (
         <Container>
             <ShareBox>
@@ -8,7 +31,7 @@ const Main = (props) => {
 
                 <div>
                     <img src="/images/user.svg" alt="" />
-                    <button>Start a post</button>
+                    <button onClick={handleClick}>Start a post</button>
                 </div>
                 <div>
                     <button>
@@ -85,6 +108,7 @@ const Main = (props) => {
                     </SocialActions>
                 </Article>
             </div>
+            <PostModel showModel={showModel} handleClick={handleClick} />
         </Container>
     )
 }
